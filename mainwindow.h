@@ -1,44 +1,64 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+#include"client.h"
+#include "arduino.h"
 #include <QMainWindow>
-#include "vehicle.h"
 
-namespace Ui {
-class MainWindow;
-}
-
+QT_BEGIN_NAMESPACE
+namespace Ui { class MainWindow; }
+QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
+    MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
+char arduino;
 private slots:
+    void on_pushButton_clicked();
+
+    void on_pushButtonValider_clicked();
+
+    void on_pushButtonS_clicked();
+
+    void on_pushButton_modifier_clicked();
+
+    void on_pushButton_Modifier_clicked();
+
+    void on_pushButton_Trier_clicked();
+
+    void on_pushButton_PDF_clicked();
+
+    void on_pushButton_Login_clicked();
+void processSerialData();
 
 
-    void on_addVehicle_Button_clicked();
-    
-    void on_updateVehicleButton_clicked();
-    
-    void on_deleteVehicleButton_clicked();
+     // slot permettant la mise à jour du label état de la lampe 1,
+       // ce slot est lancé à chaque réception d'un message de Arduino
 
-    void on_imprimer_clicked();
+       void on_pushButton_clickedon();   // bouton ON
 
-    void on_excel_clicked();
+       void on_pushButton_2_clicked(); // bouton OFF
 
-    void on_triparid_clicked();
+       void on_pushButton_3_clicked(); // bouton +
 
-    void on_tripardatedebut_clicked();
+       void on_pushButton_4_clicked(); // bouton -
 
-    void on_recherche_2_clicked();
+ void update_label();
+    //void on_pushButton_Login_clicked();
+
+ void on_recherche_clicked();
 
 private:
-     Vehicle tmpproduits;
     Ui::MainWindow *ui;
-    Vehicle V1;
-};
+    Client c;
+    Client tmpAchats;
+    Client trinAchats;
 
+    QByteArray data; // variable contenant les données reçues
+QSerialPort *serial;
+       Arduino A; // objet temporaire
+};
 #endif // MAINWINDOW_H
